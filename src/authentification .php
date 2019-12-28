@@ -66,19 +66,21 @@ if($i!=0){
     header('location:../index.php');
 }else{
     $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom,email=:email');
-    $req->execute(array(
-        'nom'=$name,
-        'email'=$email
-    ));
+
+    $req -> execute (
+        [
+            'name'=>$name,
+            'email'=>strtolower($email)
+        ]);
     $existe=$req->fetch(PDO::FETCH_ASSOC);
     if(!$existe){
-        $req=$bdd->prepare('INSERT INTO  membre(nom,email,code,matricule) VALUES(nom=:nom,email=:email,code=:code,matricule=:matricule)');
-        $req->execute([
-            'nom'=$name,
-            'email'=strtolower($email),
-            'code'=generate(),
-            var_dump('code');
-            'password'=md5($passe)
-        ]);
+        $req=$bdd->prepare('INSERT INTO  membre(nom,email,code,passwrd) VALUES(nom=:nom,email=:email,code=:code,passwrd=:passwrd)');
+        $req->execute(
+            [
+                'nom'=>$name,
+                'email'=>strtolower($email),
+                'code'=>generate(),
+                'matrucule'=>md5($passe)
+            ]);
     }
 }
