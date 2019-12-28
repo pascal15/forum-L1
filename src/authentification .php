@@ -46,7 +46,7 @@ if(!isset($_POST['conf'])){
 }
 if(!isset($_POST['mat'])){
     $_SESSION['error_mat']='le matricule est requis';
-    $i=++;
+    $i++;
 }else{
     $_SESSION['mat']=$mat;
 }
@@ -55,6 +55,30 @@ if(!preg_match("# ^1[5-8]{1}[a-z]{2}[0-9]{3}+@[esisalama]{9}\.[org]{3}$#",strtol
     $i++;
 }
 if($passe!==$conf){
-    $_SESSION['error_passe']='les deux password doivent être conforme';
+    $_SESSION['error_valide_passe']='les deux password doivent être conforme';
     $i++;
+}
+if(!preg_match("#^1[5-8]{1}[a-z]{2}[0-9]{3}#",strtolower($mat))){
+    $_SESSION['error_valide_mat']='le matricule doit être d\'esis';
+    $i++;
+}
+if($i!=0){
+    header('location:../index.php');
+}else{
+    $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom,email=:email');
+    $req->execute(array(
+        'nom'=$name,
+        'email'=$email
+    ));
+    $existe=$req->fetch(PDO::FETCH_ASSOC);
+    if(!$existe){
+        $req=$bdd->prepare('INSERT INTO  membre(nom,email,code,matricule) VALUES(nom=:nom,email=:email,code=:code,matricule=:matricule)');
+        $req->execute([
+            'nom'=$name,
+            'email'=strtolower($email),
+            'code'=generate(),
+            var_dump('code');
+            'password'=md5($passe)
+        ]);
+    }
 }
