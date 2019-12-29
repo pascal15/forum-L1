@@ -33,11 +33,6 @@ if(empty($_POST['passe'])){
 }else{
     $_SESSION['passe']=$passe;
 }
-if($i!=0){
-    header('location:../compte.php');
-}else{
-    header('location:../connexion.php');
-}
 if(empty($_POST['email'])){
     $_SESSION['error_email']='l\'adresse mail est requis';
     $i++;
@@ -66,23 +61,25 @@ if($i!=0){
     header('location:../compte.php');
 
 }else{
-    // $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom,email=:email');
+    $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom,email=:email');
 
-    // $req -> execute (
-    //     [
-    //         'name'=>$name,
-    //         'email'=>strtolower($email)
-    //     ]);
-    // $existe=$req->fetch(PDO::FETCH_ASSOC);
-    // if(!$existe){
-        $code=generate();
-        $req=$bdd->prepare('INSERT INTO  membre(nom,email,code,passwrd) VALUES(nom=:nom,email=:email,code=:code,passwrd=:passwrd)');
+    $req ->execute([
+        
+            'nom'=>$_POST['name'],
+            'email'=>$_POST['email']
+         ]);
+    $existe=$req->fetch();
+    if(!$existe){
+        generate();
+        $req=$bdd->prepare('INSERT INTO  membre(nom,email,code) VALUES(nom=:nom,email=:email,code=:code)');
         $req->execute(
             [
-                'nom'=>$name,
-                'email'=>strtolower($email),
-                'code'=>$code,
-                'passwrd'=>md5($passe)
+                'nom'=>$_POST['name'],
+                'email'=>$_POST['email'],
+                'code'=>generate()
             ]);
+        $donne=$bdd->query('SELECT * FROM membre');
+        $nom=$donne->fetch(PDO::FETCH_ASSOC);
+        
     }
 }

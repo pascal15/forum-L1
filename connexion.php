@@ -76,9 +76,9 @@ require('src\init.php');
                     <input type="text">
                     <label for="">Code d'acces</label>
                     <input type="text">
+                    <button type="submit" class="btn-1">Se connecter</button>
                 </form>
-                <a href="#" class="small-title">Mot de passe oublié</a>
-                <button type="submit" class="btn-1">Se connecter</button>
+                <a href="#" class="small-title">Mot de passe oublié</a>                
                 <span>
                         <p class="gray-1 d-ib">Vous n'avez pas de compte ?</p>
                         <a href="compte.php" class="link-1">Créer un compte</a>

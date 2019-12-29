@@ -15,10 +15,10 @@ if(empty($_POST['code'])){
     $_SESSION['error_code']='le code d\'acces est requis';
     $i++;
 }else{
-    $_SESSION['code'=$code;
+    $_SESSION['code']=$code;
 }
 if($i!=0){
-    header('location:../connexion.php');
+    // header('location:../connexion.php');
 }
 else{
     $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom AND code=:code');
@@ -28,8 +28,8 @@ else{
     ]);
     $exist=$req->fetch(PDO::FETCH_ASSOC);
     if(!$exist){
-        $_SESSION['error_session']='ces identifiants n\'existent pas';
-        header('location:../connexion.php');
+       echo  $_SESSION['error_session']='ces identifiants n\'existent pas';
+        
     }else{
         header('location:../main.php');
     }
