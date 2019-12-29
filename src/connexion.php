@@ -18,10 +18,19 @@ if(empty($_POST['code'])){
     $_SESSION['code'=$code;
 }
 if($i!=0){
-    
+    header('location:../connexion.php');
 }
-
-$req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom AND code=:code');
-$req->execute([
-    'nom'
-])
+else{
+    $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom AND code=:code');
+    $req->execute([
+        'nom'=>$nom,
+        'code'=>$code
+    ]);
+    $exist=$req->fetch(PDO::FETCH_ASSOC);
+    if(!$exist){
+        $_SESSION['error_session']='ces identifiants n\'existent pas';
+        header('location:../connexion.php');
+    }else{
+        header('location:../main.php');
+    }
+}

@@ -40,7 +40,7 @@ require('src\init.php');
                     <label for="">Confirmer le mot de passe</label>
                     <input type="password"  name="conf">
                     <input type="submit" value="s'inscrire">
-                    <a href=""></a><button  class="btn-1">S'inscrire</button>
+                    <button type="submit" class="btn-1">S'inscrire</button>
                 </form>
                 
             </div>
