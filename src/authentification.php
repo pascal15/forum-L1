@@ -26,11 +26,17 @@ if(empty($_POST['name'])){
 }else{
     $_SESSION['name']=$name;
 }
+
 if(empty($_POST['passe'])){
     $_SESSION['error_passe']='le mot de passe est requis';
     $i++;
 }else{
     $_SESSION['passe']=$passe;
+}
+if($i!=0){
+    header('location:../compte.php');
+}else{
+    header('location:../connexion.php');
 }
 if(empty($_POST['email'])){
     $_SESSION['error_email']='l\'adresse mail est requis';
@@ -50,37 +56,33 @@ if(empty($_POST['mat'])){
 }else{
     $_SESSION['mat']=$mat;
 }
-if(!preg_match("# ^1[5-8]{1}[a-z]{2}[0-9]{3}+@[esisalama]{9}\.[org]{3}$#",strtolower($email))){
-    $_SESSION['error_valide ']=' le mail doit être d\'esis';
-    $i++;
-}
+
 if($passe!==$conf){
     $_SESSION['error_valide_passe']='les deux password doivent être conforme';
     $i++;
 }
-if(!preg_match("#^1[5-8]{1}[a-z]{2}[0-9]{3}#",strtolower($mat))){
-    $_SESSION['error_valide_mat']='le matricule doit être d\'esis';
-    $i++;
-}
+
 if($i!=0){
     header('location:../compte.php');
-}else{
-    $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom,email=:email');
 
-    $req -> execute (
-        [
-            'name'=>$name,
-            'email'=>strtolower($email)
-        ]);
-    $existe=$req->fetch(PDO::FETCH_ASSOC);
-    if(!$existe){
+}else{
+    // $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom,email=:email');
+
+    // $req -> execute (
+    //     [
+    //         'name'=>$name,
+    //         'email'=>strtolower($email)
+    //     ]);
+    // $existe=$req->fetch(PDO::FETCH_ASSOC);
+    // if(!$existe){
+        $code=generate();
         $req=$bdd->prepare('INSERT INTO  membre(nom,email,code,passwrd) VALUES(nom=:nom,email=:email,code=:code,passwrd=:passwrd)');
         $req->execute(
             [
                 'nom'=>$name,
                 'email'=>strtolower($email),
-                'code'=>generate(),
-                'matrucule'=>md5($passe)
+                'code'=>$code,
+                'passwrd'=>md5($passe)
             ]);
     }
 }

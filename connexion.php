@@ -71,14 +71,14 @@ require('src\init.php');
             <h1>Bienvenu sur votre Forum</h1>
             <p class="small-title">Trouvez vos réponses</p>
             <div class="form">
-                <form action="">
+                <form action="src\connexion.php">
                     <label for="">Nom</label>
                     <input type="text">
                     <label for="">Code d'acces</label>
-                    <input type="password">
+                    <input type="text">
                 </form>
                 <a href="#" class="small-title">Mot de passe oublié</a>
-                <button class="btn-1">Se connecter</button>
+                <button type="submit" class="btn-1">Se connecter</button>
                 <span>
                         <p class="gray-1 d-ib">Vous n'avez pas de compte ?</p>
                         <a href="compte.php" class="link-1">Créer un compte</a>
