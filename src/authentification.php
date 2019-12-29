@@ -1,11 +1,11 @@
 <?php
 require('init.php');
 
-$name= isset($_POST['name'])?$_POST['name']:'';
-$passe= isset($_POST['passe'])?$_POST['passe']:'';
-$email= isset($_POST['email'])?$_POST['email']:'';
-$conf= isset($_POST['conf'])?$_POST['conf']:'';
-$mat= isset($_POST['mat'])?$_POST['mat']:'';
+$name= !empty($_POST['name'])?$_POST['name']:'';
+$passe= !empty($_POST['passe'])?$_POST['passe']:'';
+$email= !empty($_POST['email'])?$_POST['email']:'';
+$conf= !empty($_POST['conf'])?$_POST['conf']:'';
+$mat= !empty($_POST['mat'])?$_POST['mat']:'';
 
 $_SESSION   ['name']= null;
 $_SESSION   ['error_name']= null;
@@ -20,31 +20,31 @@ $_SESSION   ['error_mat']= null;
 
 $i=0;
 
-if(!isset($_POST['name'])){
+if(empty($_POST['name'])){
     $_SESSION['error_name']='le nom est requis';
     $i++;
 }else{
     $_SESSION['name']=$name;
 }
-if(!isset($_POST['passe'])){
+if(empty($_POST['passe'])){
     $_SESSION['error_passe']='le mot de passe est requis';
     $i++;
 }else{
     $_SESSION['passe']=$passe;
 }
-if(!isset($_POST['email'])){
+if(empty($_POST['email'])){
     $_SESSION['error_email']='l\'adresse mail est requis';
     $i++;
 }else{
     $_SESSION['email']=$email;
 }
-if(!isset($_POST['conf'])){
+if(empty($_POST['conf'])){
     $_SESSION['error_conf']='veiller confirmer le mot de passe';
     $i++;
 }else{
     $_SESSION['conf']=$conf;
 }
-if(!isset($_POST['mat'])){
+if(empty($_POST['mat'])){
     $_SESSION['error_mat']='le matricule est requis';
     $i++;
 }else{
@@ -63,7 +63,7 @@ if(!preg_match("#^1[5-8]{1}[a-z]{2}[0-9]{3}#",strtolower($mat))){
     $i++;
 }
 if($i!=0){
-    header('location:../index.php');
+    header('location:../compte.php');
 }else{
     $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom,email=:email');
 

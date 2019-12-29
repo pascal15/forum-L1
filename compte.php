@@ -1,3 +1,6 @@
+<?php
+require('src\init.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,19 +28,21 @@
             <h1>Créer un compte gratuitement</h1>
             <p class="small-title">Trouvez vos réponses</p>
             <div class="form">
-                <form action="forum.php" method="POST">
+                <form action="src\authentification.php" method="POST">
                     <label for="">Nom</label>
-                    <input type="text" placeholder="Nom complet">
+                    <input type="text" placeholder="Nom complet" name="name">
                     <label for="">Matricule</label>
-                    <input type="text" placeholder="ex : 18BN037">
+                    <input type="text" placeholder="ex : 18BN037" name="mat">
                     <label for="">Email</label>
-                    <input type="email" placeholder="ex : 18bn037@esisalama.org">
+                    <input type="email" placeholder="ex : 18bn037@esisalama.org" name="email">
                     <label for="">Mot de passe</label>
-                    <input type="password">
+                    <input type="password" name="passe">
                     <label for="">Confirmer le mot de passe</label>
-                    <input type="password">
+                    <input type="password"  name="conf">
+                    <input type="submit" value="s'inscrire">
+                    <a href=""></a><button  class="btn-1">S'inscrire</button>
                 </form>
-                <button class="btn-1">S'inscrire</button>
+                
             </div>
             
         </div>
