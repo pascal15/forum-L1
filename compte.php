@@ -1,5 +1,5 @@
 <?php
-require('src\init.php');
+namespace src\session;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,13 +32,13 @@ require('src\init.php');
                     <label for="">Nom</label>
                     <input type="text" placeholder="Nom complet" name="name">
                     <label for="">Matricule</label>
-                    <input type="text" placeholder="ex : 18BN037" name="mat">
+                    <input type="text" placeholder="ex : 18BN037" name="matricule">
                     <label for="">Email</label>
                     <input type="email" placeholder="ex : 18bn037@esisalama.org" name="email">
                     <label for="">Mot de passe</label>
                     <input type="password" name="passe">
                     <label for="">Confirmer le mot de passe</label>
-                    <input type="password"  name="conf">
+                    <input type="password"  name="confirm">
                     <input type="submit" value="s'inscrire">
                     <button type="submit" class="btn-1">S'inscrire</button>
                 </form>

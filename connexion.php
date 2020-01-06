@@ -1,7 +1,3 @@
-<?php
-require('src\init.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,9 +67,9 @@ require('src\init.php');
             <h1>Bienvenu sur votre Forum</h1>
             <p class="small-title">Trouvez vos réponses</p>
             <div class="form">
-                <form action="src\connexion.php">
+                <form action="src\essaye.php" method="POST">
                     <label for="">Nom</label>
-                    <input type="text">
+                    <input type="text" name="name">
                     <label for="">Code d'acces</label>
                     <input type="text">
                     <button type="submit" class="btn-1">Se connecter</button>
