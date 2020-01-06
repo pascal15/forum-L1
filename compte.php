@@ -1,5 +1,8 @@
 <?php
 namespace src\session;
+if(!empty($_SESSION['name'])){
+    header('location:')
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,6 +1,12 @@
 <?php
 
-namespace src\session ;
+require('session\session.php');
+require('code.php');
+
+function securite($nom){
+    $nom=htmlspecialchars(htmlentities($nom));
+    return $nom;
+}
 
 $i=0;
 
@@ -40,6 +46,35 @@ if(isset($_POST['confirm']) && !empty($_POST['confirm'])){
     $i++;
 }
 
+if($pswrd!==$confirm){
+    $_SESSION['error_pswrd']="les deux password doivent etre identque";
+    $i++;
+}
+
+
 if($i!=0){
-    echo "nous sommes desole";
+    header('location:../compte.php');
+}else{
+    $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom AND email=:email');
+    $req->execute([
+        'nom'=>$name,
+        'email'=>$email
+    ]);
+    $existe=$req->fetch(PDO::FETCH_ASSOC);
+    if(!$existe){
+        $req=$bdd->prepare('INSERT INTO membre(nom,email,code,matricule,passwrd) VALUES(:nom,:email,:code,:matricule,:passwrd)');
+        $req->execute([
+            'nom'=>$name,
+            'email'=>$email,
+            'code'=>generate(),
+            'matricule'=>$matricule,
+            'passwrd'=>md5($pswrd)
+        ]);
+        session_name('pascal');
+        session_start();
+        $_SESSION['name']=$name;
+        header('location:');
+    }else{
+        echo "ces identifiants sont utilises";
+    }
 }
