@@ -31,6 +31,10 @@ if($i!=0){
     $existe=$req->fetch();
     
     if($existe){
+        $req=$bdd->prepare('INSERT INTO online(nom) value(:nom)');
+        $req->execute([
+            'nom'=>$name
+        ]);
         session_name('pascal');
         session_start();
         $_SESSION['name']=$existe['nom'];

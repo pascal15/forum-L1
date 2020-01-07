@@ -1,3 +1,10 @@
+<?php
+session_name('pascal');
+session_start();
+unset($_SESSION['name']);
+header('location:connexion.php');
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
