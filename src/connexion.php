@@ -1,36 +1,41 @@
 <?php
-require('init.php');
-$nom=!empty($_POST['name'])?($_POST['name']):'';
-$code=!empty($_POST['code'])?($_POST['code']):'';
+require('session\session.php');
 
 $i=0;
 
-if(empty($_POST['name'])){
+if(isset($_POST['name']) and !empty($_POST['name'])){
+    $name=($_POST['name']);
+    $_SESSION['name']=$name;
+
+}else{
     $_SESSION['error_name']='le nom est requis';
     $i++;
-}else{
-    $_SESSION['name']=$nom;
 }
-if(empty($_POST['code'])){
-    $_SESSION['error_code']='le code d\'acces est requis';
-    $i++;
-}else{
+
+if(isset($_POST['code']) and !empty($_POST['code'])){
+    $code=($_POST['code']);
     $_SESSION['code']=$code;
+}else{
+    $_SESSION['error_code']='le coded\'acces est requis';
+    $i++;
 }
+
+echo $i;
 if($i!=0){
-    // header('location:../connexion.php');
-}
-else{
-    $req=$bdd->prepare('SELECT * FROM membre WHERE nom=:nom AND code=:code');
-    $req->execute([
-        'nom'=>$nom,
-        'code'=>$code
-    ]);
-    $exist=$req->fetch(PDO::FETCH_ASSOC);
-    if(!$exist){
-       echo  $_SESSION['error_session']='ces identifiants n\'existent pas';
-        
+    header('location:../connexion.php');
+}else{
+    
+    $req=$bdd->query("SELECT * FROM membre WHERE nom='{$name}' AND code='{$code}'");
+    
+
+    $existe=$req->fetch();
+    
+    if($existe){
+        session_name('pascal');
+        session_start();
+        $_SESSION['name']=$existe['nom'];
+        header('location:../connecter.php');
     }else{
-        header('location:../main.php');
+        echo"veuillez vous inscrire";
     }
 }

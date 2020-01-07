@@ -1,3 +1,11 @@
+<?php
+session_name('pascal');
+session_start();
+if(isset($_SESSION['name']) and !empty($_SESSION['name'])){
+    header('location:connecter.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

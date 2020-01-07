@@ -1,3 +1,11 @@
+<?php
+session_name('pascal');
+session_start();
+if(isset($_SESSION['name']) and !empty($_SESSION['name'])){
+    header('location:connecter.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,11 +75,11 @@
             <h1>Bienvenu sur votre Forum</h1>
             <p class="small-title">Trouvez vos réponses</p>
             <div class="form">
-                <form action="src\essaye.php" method="POST">
+                <form action="src\connexion.php" method="POST">
                     <label for="">Nom</label>
                     <input type="text" name="name">
                     <label for="">Code d'acces</label>
-                    <input type="text">
+                    <input type="text" name="code">
                     <button type="submit" class="btn-1">Se connecter</button>
                 </form>
                 <a href="#" class="small-title">Mot de passe oublié</a>                

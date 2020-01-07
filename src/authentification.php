@@ -73,7 +73,7 @@ if($i!=0){
         session_name('pascal');
         session_start();
         $_SESSION['name']=$name;
-        header('location:');
+        header('location:main.php');
     }else{
         echo "ces identifiants sont utilises";
     }

@@ -1,7 +1,8 @@
 <?php
-namespace src\session;
+session_name('pascal');
+session_start();
 if(!empty($_SESSION['name'])){
-    header('location:')
+    header('location:connecter.php');
 }
 ?>
 <!DOCTYPE html>
